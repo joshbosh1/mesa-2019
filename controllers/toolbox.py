@@ -71,6 +71,7 @@ def huntVir(robot, target):
             robot.step_forward(tx)
 
 def rightWall(robot):
+    #Follows the right wall
     while True:
         f = robot.sense_steps(robot.SENSOR_FORWARD)
         r = robot.sense_steps(robot.SENSOR_RIGHT)
@@ -88,6 +89,26 @@ def rightWall(robot):
                     robot.turn_right(2)
         elif r >= 1:
             robot.turn_right()
+            robot.step_forward()
+            
+def leftWall(robot):
+    #Follows the left wall
+    while True:
+        f = robot.sense_steps(robot.SENSOR_FORWARD)
+        r = robot.sense_steps(robot.SENSOR_RIGHT)
+        l = robot.sense_steps(robot.SENSOR_LEFT)
+
+        if l < 1:
+            if f >= 1:
+                robot.step_forward()
+            else:
+                if r >= 1:
+                    robot.turn_right()
+                    robot.step_forward()
+                else:
+                    robot.turn_left(2)
+        elif l >= 1:
+            robot.turn_left()
             robot.step_forward()
 
 def noWallPackets(robot, packetNum):
